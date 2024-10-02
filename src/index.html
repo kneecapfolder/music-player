@@ -6,22 +6,43 @@
 
     <meta charset="UTF-8" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index.css" />
-
+    
     <script defer src="render.js"></script>
 </head>
 
 <body>
-    <div>
-
-    </div>
-
-    <nav>
-
-    </nav>
-
     <main>
-        
+        <!-- left -->
+        <div>
+            <div id="search">
+                <input spellcheck="false" type="text">
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <button><i class="fa-solid fa-plus"></i></button>
+            </div>
+
+            <nav>
+                <!-- <img src="https://upload.wikimedia.org/wikipedia/he/d/dc/Feel_Good_Inc._Artwork.jpg">
+
+                <audio controls src="../music/feel good inc.mp3"></audio> -->
+
+                <div class="over"></div>
+            </nav>
+        </div>
+
+        <!-- right -->
+         <div>
+            <div id="display">
+            </div>
+
+            <div id="controls">
+                <audio src="../music/feel good inc.mp3"></audio>
+
+                <input type="range" id="progress">
+            </div>
+         </div>
     </main>
 </body>
 

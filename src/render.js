@@ -25,13 +25,14 @@ class Song {
         elm.children[1].innerText = this.artist;
         obj.appendChild(elm)
 
-        obj.onclick = () => select(obj);
+        obj.onclick = () => select(obj, this);
 
         parent.appendChild(obj);
     }
 }
 
 
+const searchBar = document.getElementById('search');
 const songList = document.querySelector('nav');
 var songs = [];
 var selected;
@@ -39,8 +40,10 @@ var selected;
 
 // ipcRenderer.send("save", songs); // JSON.stringify(songList.children)
 
-function select(item) {
-    item.children[1].children[0].style.color = 'green';
+function select(div, obj) {
+    div.children[1].children[0].style.color = 'blue';
+    select = obj;
+    console.log(obj);
 }
 
 async function loadSongs() {
