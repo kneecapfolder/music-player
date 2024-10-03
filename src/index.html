@@ -40,7 +40,17 @@
             <div id="controls">
                 <audio src="../music/feel good inc.mp3"></audio>
 
-                <input type="range" id="progress">
+                <div>
+                    <button id="back"><i class="fa-solid fa-backward-step"></i></button>
+                    <button onclick="playBtn(this)" id="play"><i class="fa-solid fa-circle-play"></i></button>
+                    <button id="forward"><i class="fa-solid fa-forward-step"></i></button>
+                </div>
+
+                <div>
+                    <p id="currTime">0:00</p>
+                    <input value="0" max="100" type="range" id="progress">
+                    <p id="endTime">0:00</p>
+                </div>
             </div>
          </div>
     </main>
