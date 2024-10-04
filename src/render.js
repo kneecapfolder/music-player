@@ -35,7 +35,8 @@ class Song {
 const searchBar = document.getElementById('search');
 const songList = document.querySelector('nav');
 const root = document.querySelector(':root');
-var songs = [];
+let songs = [];
+let selected = null;
 let playing = false;
 let changing = false;
 
@@ -45,7 +46,10 @@ const audio = document.querySelector('audio');
 const currTime = document.getElementById('currTime');
 const endTime = document.getElementById('endTime');
 
-
+onkeydown = (e) => {
+    if (e.key == ' ')
+        playBtn(document.getElementById('play'));
+}
 
 progress.addEventListener('input', () => {
     changing = true;
@@ -66,14 +70,21 @@ setInterval(() => {
     }
 }, 100);
 
-function pickSong(selected) {
-    selected.obj.children[1].children[0].style.color = 'blue';
-    audio.src = '../music/feel good inc.mp3';
+function pickSong(picked) {
+    if (selected != null)
+        selected.obj.children[1].children[0].style.color = 'white';
+
+    picked.obj.children[1].children[0].style.color = 'yellow';
+    selected = picked;
+    
+    audio.pause();
+    audio.src = picked.link;
 }
 
 audio.onloadedmetadata = () => {
     endTime.innerHTML = formatTime(audio.duration.toFixed(0));
     progress.setAttribute('max', audio.duration.toFixed(0));
+    audio.volume = .5;
     audio.currentTime = 0;
     progress.value = 0;
     fillSlider();
@@ -99,12 +110,30 @@ function playBtn(btn) {
     playing = paused;
 }
 
+function backBtn() {
+    console.log(songs);
+    if (audio.currentTime > 3)
+        audio.currentTime = 0;
+    else {
+        let index = songs.findIndex(s => s.name == selected.name) - 1;
+        pickSong(songs[index < 0? songs.length-1: index > songs.length-1? 0: index]);
+    }
+}
+
+function forwardBtn() {
+    let index = songs.findIndex(s => s.name == selected.name) + 1;
+    pickSong(songs[index < 0? songs.length-1: index > songs.length-1? 0: index]);
+}
+
 async function loadSongs() {
     fetch('songs.json')
         .then(response => response.json())
         .then(data => {
+            songs = [];
             data.forEach(elm => {
-                new Song(elm).createObj(songList); // Add songs to the song list
+                let song = new Song(elm);
+                song.createObj(songList);
+                songs.push(song); // Add songs to the song list
             });
         });
 }

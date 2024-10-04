@@ -14,6 +14,7 @@ const createWindow = () => {
         height: 600,
         autoHideMenuBar: true,
         resizable: false,
+        icon: 'images/icon.ico',
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,

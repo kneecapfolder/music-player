@@ -3,6 +3,12 @@
         "name": "feel good inc.",
         "artist": "gorillaz",
         "img": "https://upload.wikimedia.org/wikipedia/en/d/df/Gorillaz_Demon_Days.PNG",
-        "link": ""
+        "link": "../music/feel good inc.mp3"
+    },
+    {
+        "name": "Wesley's theory",
+        "artist": "Kendrick Lamar",
+        "img": "https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2015/3/11/1426099817173/f1efb3f4-9a6d-4f78-8ca8-594ab646d198-bestSizeAvailable.jpeg?width=465&dpr=1&s=none",
+        "link":"../music/Wesley's Theory.mp3"
     }
 ]
