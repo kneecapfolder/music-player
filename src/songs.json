@@ -1,14 +1,1 @@
-[
-    {
-        "name": "feel good inc.",
-        "artist": "gorillaz",
-        "img": "https://upload.wikimedia.org/wikipedia/en/d/df/Gorillaz_Demon_Days.PNG",
-        "link": "../music/feel good inc.mp3"
-    },
-    {
-        "name": "Wesley's theory",
-        "artist": "Kendrick Lamar",
-        "img": "https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2015/3/11/1426099817173/f1efb3f4-9a6d-4f78-8ca8-594ab646d198-bestSizeAvailable.jpeg?width=465&dpr=1&s=none",
-        "link":"../music/Wesley's Theory.mp3"
-    }
-]
+[{"name":"Judas","artist":"Lady Gaga","img":"https://cdns-images.dzcdn.net/images/cover/0f256c4bebac58a7c4122e0e639303a8/1900x1900-000000-80-0-0.jpg","link":"C:\\Users\\ilan7\\Downloads\\judas.mp3"},{"name":"rollin","artist":"Limp Bizkit","img":"https://upload.wikimedia.org/wikipedia/en/3/38/Limp_Bizkit_Chocolate_Starfish_and_the_Hotdog_Flavored_Water.jpg","link":"C:\\Users\\ilan7\\Downloads\\rollin.mp3"}]

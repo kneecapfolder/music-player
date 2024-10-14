@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>add a song</title>
+
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="add.css">
+
+</head>
+
+<body>
+    <form>
+        <label for="song">Song:</label>
+        <input id="test" required type="text" name="song" placeholder="song link/location">
+        <br>
+
+        <label for="img">Cover Img:</label>
+        <input required type="text" name="img" placeholder="img link/location">
+        <br>
+
+        <label for="name">Name:</label>
+        <input required type="text" name="name" placeholder="name">
+        <br>
+
+        <label for="artist">Artist:</label>
+        <input required type="text" name="artist" placeholder="artist">
+        <br>
+
+        <input type="submit" value="ADD SONG">
+    </form>
+</body>
+
+<script>
+    const { ipcRenderer } = require('electron');
+    const fs = require('fs')
+    const test = document.getElementById('test');
+
+    let songs = []
+    
+    fetch('songs.json')
+        .then(response => response.json())
+        .then(data => data.forEach(elm =>
+            songs.push(elm)
+        ));
+
+    const form = document.querySelector('form');
+    
+    form.onsubmit = async (e) => {
+        e.preventDefault();
+
+        const data = new FormData(form);
+
+        songs.push({
+            // name: window.URL.createObjectURL(data.get('name')),
+            name: data.get('name'),
+            artist: data.get('artist'),
+            img: data.get('img'),
+            link: data.get('song')
+        })
+        await fs.writeFile('src/songs.json', JSON.stringify(songs), 'utf-8', (err) => { });
+        
+        window.close();
+    }
+</script>
+
+</html>

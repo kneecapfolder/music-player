@@ -92,9 +92,7 @@ audio.onloadedmetadata = () => {
     playBtn(document.getElementById('play'));
 }
 
-audio.onended = () => {
-    // let index = songs.indexOf()
-}
+audio.onended = forwardBtn;
 
 let formatTime = (t) => {
     return `${parseInt(t/60)}:${parseInt(t%60) < 10 ? '0' : ''}${parseInt(t%60)}`;
@@ -124,6 +122,20 @@ function forwardBtn() {
     let index = songs.findIndex(s => s.name == selected.name) + 1;
     pickSong(songs[index < 0? songs.length-1: index > songs.length-1? 0: index]);
 }
+
+function openMenu() {
+    ipcRenderer.send('open:add')
+    /* window.open(
+        'add.html',
+        '_blank',
+        'width=300, height=360, autoHideMenuBar=true, resizable=false, nodeIntegration=yes, contextisolation=false'
+    ); */
+}
+
+ipcRenderer.on('add', (e) => {
+    console.log('loijdsglohjdfskljndfs');
+    console.log(e);
+});
 
 async function loadSongs() {
     fetch('songs.json')

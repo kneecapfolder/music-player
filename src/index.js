@@ -1,5 +1,6 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, protocol } = require('electron');
 const fs = require('fs');
+const url = require('url');
 const path = require('node:path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -7,9 +8,10 @@ if (require('electron-squirrel-startup')) {
     app.quit();
 }
 
+let mainWindow;
 const createWindow = () => {
     // Create the browser window.
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 700,
         height: 600,
         autoHideMenuBar: true,
@@ -22,8 +24,11 @@ const createWindow = () => {
         },
     });
 
-    // and load the index.html of the app.
+    // And load the index.html of the app.
     mainWindow.loadFile(path.join(__dirname, 'index.html'));
+
+    // Quit app when closed
+    mainWindow.on('close', app.quit);
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
@@ -57,5 +62,41 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and import them here.
 ipcMain.on("save", async (list) => {
     let data = JSON.stringify(list)
-    fs.writeFile('src/songs.json', data, 'utf-8', (err) => {});
+    fs.writeFile('src/songs.json', data, 'utf-8', (err) => { });
 });
+
+// Create the song adding window
+let addWindow = null;
+ipcMain.on("open:add", () => {
+    if (addWindow != null)
+        return;
+
+    addWindow = new BrowserWindow({
+        width: 300,
+        height: 360,
+        autoHideMenuBar: true,
+        resizable: false,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            preload: path.join(__dirname, 'preload.js')
+        }
+    });
+
+    addWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'add.html'),
+        protocol: 'file:',
+        slashes: true
+    }))
+
+    addWindow.on('close', () => {
+        mainWindow.reload();
+        addWindow = null;
+    });
+
+    // addWindow.webContents.openDevTools();
+});
+
+ipcMain.on('display', (elm) => {
+    return elm;
+})
