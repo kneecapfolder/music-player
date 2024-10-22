@@ -32,7 +32,7 @@ class Song {
     }
 }
 
-const searchBar = document.getElementById('search');
+const searchBar = document.getElementById('bar');
 const songList = document.querySelector('nav');
 const root = document.querySelector(':root');
 let songs = [];
@@ -51,11 +51,16 @@ onkeydown = (e) => {
         playBtn(document.getElementById('play'));
 }
 
+searchBar.addEventListener('input', () => {
+    reloadSongs(searchBar.value.toLowerCase());
+});
+
 progress.addEventListener('input', () => {
     changing = true;
     audio.pause();
     fillSlider();
 });
+
 progress.addEventListener('change', () => {
     audio.currentTime = progress.value;
     changing = false;
@@ -125,19 +130,13 @@ function forwardBtn() {
 
 function openMenu() {
     ipcRenderer.send('open:add')
-    /* window.open(
-        'add.html',
-        '_blank',
-        'width=300, height=360, autoHideMenuBar=true, resizable=false, nodeIntegration=yes, contextisolation=false'
-    ); */
 }
 
 ipcRenderer.on('add', (e) => {
-    console.log('loijdsglohjdfskljndfs');
     console.log(e);
 });
 
-async function loadSongs() {
+async function start() {
     fetch('songs.json')
         .then(response => response.json())
         .then(data => {
@@ -150,9 +149,19 @@ async function loadSongs() {
         });
 }
 
+function reloadSongs(search) {
+    while(songList.children.length > 1)
+        songList.removeChild(songList.children[1])
+        
+    songs.forEach(s => {
+        if (search == null || s.name.substring(0, search.length).toLowerCase() == search)
+            s.createObj(songList);
+    });
+}
+
 function fillSlider() {
     root.style.setProperty('--progress', `${progress.value / progress.max * 100}%`);
     currTime.innerHTML = formatTime(progress.value);
 }
 
-loadSongs();
+start();

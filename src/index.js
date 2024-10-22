@@ -12,7 +12,7 @@ let mainWindow;
 const createWindow = () => {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 700,
+        width: 700+500,
         height: 600,
         autoHideMenuBar: true,
         resizable: false,
@@ -31,7 +31,7 @@ const createWindow = () => {
     mainWindow.on('close', app.quit);
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
